@@ -3,15 +3,29 @@
     <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
     <span class="addContainer" v-on:click="addTodo">
       <font-awesome-icon icon="fa-solid fa-plus" class="addBtn"/>
-    </span>
+    </span> 
+
+    <alert-modal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">
+          경고!
+          <font-awesome-icon icon="fa-solid fa-xmark" class="closeModalBtn" 
+            @click="showModal = false"/>
+        </h3>
+        <h3 slot="body">
+          todo 내용을 입력해주세요.
+        </h3>
+    </alert-modal>
   </div>
 </template>
 
 <script>
+import AlertModal from './common/AlertModal.vue'
+
 export default {
   data : function () {
     return {
-      newTodoItem : ""
+      newTodoItem : "",
+      showModal: false
     }
   },
   methods : {
@@ -19,11 +33,16 @@ export default {
       if (this.newTodoItem !== '') {
         this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput(); 
+      }else {
+        this.showModal = !this.showModal;
       }
     },
     clearInput : function () {
       this.newTodoItem = '';
     },
+  },
+  components: {
+    AlertModal : AlertModal
   }
 }
 </script>
@@ -51,5 +70,8 @@ input:focus {
 .addBtn {
   color: white;
   vertical-align: middle;
+}
+.closeModalBtn {
+  color: #42b983;
 }
 </style>
