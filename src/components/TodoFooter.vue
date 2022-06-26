@@ -9,9 +9,5 @@
 </script>
 
 <style>
-.clear-btn {
-  color: red;
-  border: 4px;
-  background-color: antiquewhite;
-}
+
 </style>
