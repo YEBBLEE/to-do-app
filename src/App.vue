@@ -6,7 +6,7 @@
         v-on:removeTodoItem="removeOneItem" 
         v-on:toggleTodoItem="toggleOneItem"
         v-bind:propsdata="todoItems"></todo-list>
-      <todo-footer></todo-footer>
+      <todo-footer v-on:clearAll="clearAllItem"></todo-footer>
   </div>
 </template>
 
@@ -36,6 +36,10 @@ export default {
       this.todoItems[index].completed = !this.todoItems[index].completed;
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    },
+    clearAllItem: function() {
+      localStorage.clear();
+      this.todoItems = [];
     }
   },
   created: function() {
